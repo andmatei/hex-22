@@ -1,3 +1,7 @@
+from engine import Board
+from engine import BaseGame
+
+
 class Move():
     """Represents a player move in a turn of Hex."""
 
@@ -8,7 +12,7 @@ class Move():
         self.x = x  # -1 if swap
         self.y = y  # -1 if swap
 
-    def is_valid_move(self, game):
+    def is_valid_move(self, game: BaseGame):
         """Checks if the move can be made by the given player at the given
         position.
         """
@@ -34,7 +38,7 @@ class Move():
         # a swap move is defined as -1,-1
         return self.x == -1 and self.y == -1
 
-    def move(self, b):
+    def move(self, b: Board):
         # fill the tile
         tile = b.get_tiles()[self.x][self.y]
         tile.set_colour(self.colour)

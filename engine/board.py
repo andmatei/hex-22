@@ -1,5 +1,5 @@
-from Tile import Tile
-from Colour import Colour
+from tile import Tile
+from colour import Colour
 
 
 class Board:
@@ -74,6 +74,13 @@ class Board:
         for line in self._tiles:
             for tile in line:
                 tile.clear_visit()
+
+    def reset(self):
+        """Resets the board to the start state of a game."""
+
+        for line in self._tiles:
+            for tile in line:
+                tile.reset()
 
     def DFS_colour(self, x, y, colour):
         """A recursive DFS method that iterates through connected same-colour

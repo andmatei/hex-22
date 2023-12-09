@@ -2,7 +2,7 @@ import socket
 import subprocess
 from sys import platform, stdout
 from time import time_ns
-from Colour import Colour
+from colour import Colour
 import shlex
 
 

@@ -4,15 +4,28 @@ from os.path import realpath, sep
 from os.path import exists
 from datetime import datetime
 from pathlib import Path
+from abc import ABC, abstractmethod
 
-from Colour import Colour
-from Board import Board
-from Move import Move
-from Protocol import Protocol
-from EndState import EndState
+from colour import Colour
+from board import Board
+from move import Move
+from protocol import Protocol
+from end_state import EndState
 
+class BaseGame(ABC):
+    @abstractmethod
+    def get_board(self) -> Board:
+        pass
 
-class Game():
+    @abstractmethod
+    def get_player(self) -> Colour:
+        pass
+
+    @abstractmethod
+    def get_turn(self):
+        pass
+
+class Game(BaseGame):
     """This class describes a game of Hex."""
 
     # the maximum time allocated for a match per player
