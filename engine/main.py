@@ -65,13 +65,13 @@ def main():
                     cmd_ending = ""
 
                 # watch out -- literal
-                agent_path = sep.join(realpath(__file__).split(sep)[:-2])
+                agent_path = sep.join(realpath(__file__).split(sep)[:-1])
                 agent_path += f"{sep}agents{sep}DefaultAgents{sep}NaiveAgent.py"
                 agent_cmd = f"python{cmd_ending} {agent_path}"
 
             else:
                 print("NOTICE: Java reference agent was selected.")
-                agent_dir = sep.join(realpath(__file__).split(sep)[:-2])
+                agent_dir = sep.join(realpath(__file__).split(sep)[:-1])
                 agent_dir += f"{sep}agents{sep}DefaultAgents"
                 agent_cmd = f"java -classpath {agent_dir} NaiveAgent"
 

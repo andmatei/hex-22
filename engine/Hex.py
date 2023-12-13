@@ -61,7 +61,7 @@ def get_main_cmd():
         main_cmd += "3"
 
     main_path = sep.join(realpath(__file__).split(sep)[:-1])
-    main_path += f"{sep}src{sep}main.py"
+    main_path += f"{sep}main.py"
 
     main_cmd += " " + main_path
     return main_cmd

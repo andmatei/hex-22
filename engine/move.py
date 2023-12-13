@@ -1,5 +1,4 @@
-from engine import Board
-from engine import BaseGame
+from board import Board
 
 
 class Move():
@@ -12,7 +11,7 @@ class Move():
         self.x = x  # -1 if swap
         self.y = y  # -1 if swap
 
-    def is_valid_move(self, game: BaseGame):
+    def is_valid_move(self, game):
         """Checks if the move can be made by the given player at the given
         position.
         """
