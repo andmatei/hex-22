@@ -1,9 +1,17 @@
+import numpy as np
+
 from tile import Tile
 from colour import Colour
 
 
 class Board:
     """Class that describes the Hex board."""
+
+    _ENCODING = {
+        Colour.RED: 1,
+        Colour.BLUE: -1,
+        None: 0,
+    }
 
     def __init__(self, board_size=11):
         super().__init__()
@@ -149,6 +157,33 @@ class Board:
     def set_tile_colour(self, x, y, colour):
         self._tiles[x][y].set_colour(colour)
 
+    def to_array(self, encoding = None):
+        if encoding is None:
+            encoding = self._ENCODING
+        
+        result = []
+        for row in self._tiles:
+            row_arr = []
+            for tile in row:
+                row_arr.append(encoding[tile.get_colour()])
+            result.append(row_arr)
+
+        return np.array(result)
+    
+    def to_channels(self):
+        array = self.to_array(self._ENCODING)
+
+        filter_blue = np.vectorize(lambda x: 1 if x == self._ENCODING[Colour.BLUE] else 0)
+        filter_red = np.vectorize(lambda x: 1 if x == self._ENCODING[Colour.RED] else 0)
+        filter_empty = np.vectorize(lambda x: 1 if x == self._ENCODING[None] else 0)
+
+        blue = filter_blue(array)
+        red = filter_red(array)
+        empty = filter_empty(array)
+
+        return red, blue, empty
+
+
 
 if (__name__ == "__main__"):
     b = Board.from_string(
@@ -158,3 +193,4 @@ if (__name__ == "__main__"):
     )
     b.print_board(bnf=False)
     print(b.has_ended(), b.get_winner())
+    print(b.to_array())
