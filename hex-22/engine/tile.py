@@ -1,4 +1,4 @@
-from colour import Colour
+from engine.colour import Colour
 
 
 class Tile:

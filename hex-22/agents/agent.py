@@ -1,7 +1,9 @@
 import numpy as np
 
 from abc import ABC, abstractmethod
-from engine import Move, Board, Colour
+from engine.board import Board
+from engine.colour import Colour
+from engine.move import Move
 
 class BaseAgent(ABC):
     def __init__(self, board_size: int, colour: Colour):

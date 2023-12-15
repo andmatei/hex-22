@@ -1,4 +1,4 @@
-from board import Board
+from engine.board import Board
 
 
 class Move():

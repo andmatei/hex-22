@@ -25,6 +25,8 @@ class ResidualBlock(nn.Module):
         if self.downsample:
             residual = self.downsample(x)
 
+        print(out)
+        print(residual)
         out += residual
         out = self.relu(out)
         return out

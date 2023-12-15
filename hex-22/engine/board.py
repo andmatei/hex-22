@@ -1,7 +1,7 @@
 import numpy as np
 
-from tile import Tile
-from colour import Colour
+from engine.tile import Tile
+from engine.colour import Colour
 
 
 class Board:

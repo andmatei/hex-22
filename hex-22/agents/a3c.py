@@ -1,9 +1,11 @@
 import torch
 import numpy as np
 
-from agent import TrainableAgent
-from engine import Board, Move, Colour
-from model.a3c.model import ActorCritic
+from agents.agent import TrainableAgent
+from engine.board import Board
+from engine.move import Move
+from engine.colour import Colour
+from model.a3c import ActorCritic
 
 
 class A3CAgent(TrainableAgent):
@@ -32,8 +34,9 @@ class A3CAgent(TrainableAgent):
         red, blue, empty = observation.to_channels()
         turn = self._get_colour_channel()
 
-        channels = np.stack([red, blue, empty, turn], axis=-1)
-        prob, _, = self.shared_model(torch.from_numpy(channels))
+        channels = np.stack([red, blue, empty, turn], axis=0)
+        prob, _, = self.shared_model(
+            torch.from_numpy(channels).unsqueeze(0).float())
         return prob.max(1)[1].data
 
     def create_async_learner(self):
@@ -47,10 +50,15 @@ class A3CAgent(TrainableAgent):
 
         return worker_agent
     
+    def learn(self, reward: int, observation: Board, done: bool):
+        raise RuntimeError(
+            "Not implemented. Please call create_slave_agent to "
+            "generate async learners to perform the learning.")
+    
     def save(self, path: str):
         torch.save(self.shared_model.state_dict(), path)
 
-    def load_model(self, path: str):
+    def load(self, path: str):
         self.shared_model.load_state_dict(torch.load(path))
 
 
@@ -83,9 +91,3 @@ class _A3CWorkerAgent(TrainableAgent):
 
     def act(self, observation: Board):
         actor, critic = self.local_model(observation)
-
-
-if __name__ == "__main__":
-    agent = A3CAgent(11, Colour.RED)
-    board = Board()
-    print(agent.act(board))

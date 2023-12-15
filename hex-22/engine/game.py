@@ -6,11 +6,11 @@ from datetime import datetime
 from pathlib import Path
 from abc import ABC, abstractmethod
 
-from colour import Colour
-from board import Board
-from move import Move
-from protocol import Protocol
-from end_state import EndState
+from engine.colour import Colour
+from engine.board import Board
+from engine.move import Move
+from engine.protocol import Protocol
+from engine.end_state import EndState
 
 class BaseGame(ABC):
     @abstractmethod

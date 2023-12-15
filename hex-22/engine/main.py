@@ -6,7 +6,7 @@ directly, with the same specification as Hex.py, but it is not recommended.
 from sys import argv, platform
 from os.path import realpath, sep
 
-from game import Game
+from engine.game import Game
 
 
 def main():
